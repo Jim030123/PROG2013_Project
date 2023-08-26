@@ -115,35 +115,18 @@ public class Register extends javax.swing.JFrame {
     }//GEN-LAST:event_PasswordTFActionPerformed
 
     private void RegisterBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RegisterBActionPerformed
+
           String username = UsernameTF.getText();
           String password = PasswordTF.getText(); 
           String selectedValue = (String) RoleCB.getSelectedItem();
           
-         String jdbcUrl = "jdbc:mysql://localhost:3306/food_ordering_system";
-         String dbUsername = "root";
-         String dbPassword = "";
-    
-    try (Connection connection = DriverManager.getConnection(jdbcUrl, dbUsername, dbPassword)) {
-        String sql = "INSERT INTO user (user_name, password, role) VALUES (?, ?, ?)";
-        PreparedStatement statement = connection.prepareStatement(sql);
-        statement.setString(1, username);
-        statement.setString(2, password);
-        statement.setString(3, selectedValue);
-        
-        int rowsInserted = statement.executeUpdate();
-        if (rowsInserted > 0) {
-            JOptionPane.showMessageDialog(null, "Registration successful!");
-            dispose();
-            Login loginPage = new Login();
-            loginPage.setVisible(true);
-            
-        } else {
-            JOptionPane.showMessageDialog(null, "Registration failed!");
-        }
-    } catch (SQLException e) {
-        e.printStackTrace();
-        JOptionPane.showMessageDialog(null, "Registration failed!");
-    }  
+          DB.register(username, password, selectedValue);
+          dispose();
+          
+          
+//          
+//       
+
           
           
           
