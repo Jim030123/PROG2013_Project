@@ -10,7 +10,7 @@ import java.sql.SQLException;
 import java.sql.*;
 import javax.swing.JOptionPane;
 
-public class Register extends javax.swing.JFrame {
+public class Register extends javax.swing.JFrame implements CreateAccount {
 
     /**
      * Creates new form Menu
@@ -46,7 +46,7 @@ public class Register extends javax.swing.JFrame {
 
         UsernameL.setText("Username:");
         getContentPane().add(UsernameL);
-        UsernameL.setBounds(100, 70, 80, 16);
+        UsernameL.setBounds(70, 70, 110, 16);
 
         UsernameTF.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -62,7 +62,7 @@ public class Register extends javax.swing.JFrame {
 
         PasswordL.setText("Password:");
         getContentPane().add(PasswordL);
-        PasswordL.setBounds(100, 110, 80, 16);
+        PasswordL.setBounds(70, 110, 110, 16);
 
         PasswordTF.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -74,7 +74,7 @@ public class Register extends javax.swing.JFrame {
 
         jLabel4.setText("Role:");
         getContentPane().add(jLabel4);
-        jLabel4.setBounds(100, 150, 80, 16);
+        jLabel4.setBounds(70, 150, 110, 16);
 
         RoleCB.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "customer", "management" }));
         RoleCB.addActionListener(new java.awt.event.ActionListener() {
@@ -92,7 +92,7 @@ public class Register extends javax.swing.JFrame {
             }
         });
         getContentPane().add(RegisterB);
-        RegisterB.setBounds(80, 210, 75, 23);
+        RegisterB.setBounds(80, 210, 110, 23);
 
         GoBackB.setText("Go Back");
         GoBackB.addActionListener(new java.awt.event.ActionListener() {
@@ -101,7 +101,7 @@ public class Register extends javax.swing.JFrame {
             }
         });
         getContentPane().add(GoBackB);
-        GoBackB.setBounds(240, 210, 75, 23);
+        GoBackB.setBounds(215, 210, 100, 23);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -190,4 +190,18 @@ public class Register extends javax.swing.JFrame {
     private javax.swing.JTextField UsernameTF;
     private javax.swing.JLabel jLabel4;
     // End of variables declaration//GEN-END:variables
+
+    //interface implemented
+    @Override
+    public void CreateAccount() {
+           String username = UsernameTF.getText();
+          String password = PasswordTF.getText(); 
+          String selectedValue = (String) RoleCB.getSelectedItem();
+          
+          User newUser = new Customer(username, password, selectedValue);
+          newUser.register();
+          
+          DB.register(username, password, selectedValue);
+        
+    }
 }
