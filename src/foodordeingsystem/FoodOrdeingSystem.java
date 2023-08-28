@@ -19,9 +19,9 @@ public class FoodOrdeingSystem {
      */
     public static void main(String[] args) {
        
-        DB.login();
-        Login mainMenuPage = new Login();
-       mainMenuPage.setVisible(true); 
+        DB.connect();
+        Login loginPage = new Login();
+       loginPage.setVisible(true); 
     }
     
 }

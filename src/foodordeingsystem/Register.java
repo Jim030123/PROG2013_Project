@@ -115,21 +115,11 @@ public class Register extends javax.swing.JFrame implements CreateAccount {
     }//GEN-LAST:event_PasswordTFActionPerformed
 
     private void RegisterBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RegisterBActionPerformed
+        dispose();
+        CreateAccount();
 
-          String username = UsernameTF.getText();
-          String password = PasswordTF.getText(); 
-          String selectedValue = (String) RoleCB.getSelectedItem();
-          
-          DB.register(username, password, selectedValue);
-          dispose();
-          
-          
 //          
 //       
-
-          
-          
-          
 // TODO add your handling code here:
     }//GEN-LAST:event_RegisterBActionPerformed
 
@@ -138,9 +128,9 @@ public class Register extends javax.swing.JFrame implements CreateAccount {
     }//GEN-LAST:event_RoleCBActionPerformed
 
     private void GoBackBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GoBackBActionPerformed
-   dispose();
-    Login loginPage = new Login();
-            loginPage.setVisible(true);
+        dispose();
+        Login loginPage = new Login();
+        loginPage.setVisible(true);
     }//GEN-LAST:event_GoBackBActionPerformed
 
     /**
@@ -194,14 +184,17 @@ public class Register extends javax.swing.JFrame implements CreateAccount {
     //interface implemented
     @Override
     public void CreateAccount() {
-           String username = UsernameTF.getText();
-          String password = PasswordTF.getText(); 
-          String selectedValue = (String) RoleCB.getSelectedItem();
-          
-          User newUser = new Customer(username, password, selectedValue);
-          newUser.register();
-          
-          DB.register(username, password, selectedValue);
-        
+        String username = UsernameTF.getText();
+        String password = PasswordTF.getText();
+        String selectedValue = (String) RoleCB.getSelectedItem();
+
+        if (selectedValue == "customer") {
+            User newUser = new Customer(selectedValue, username, password);
+            DB.register(newUser);
+        } else if (selectedValue == "management") {
+            User newUser = new Management(selectedValue, username, password);
+            DB.register(newUser);
+        }
+
     }
 }
